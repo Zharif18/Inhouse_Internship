@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/0132801086.js" crossorigin="anonymous"></script>
+    <title>Portfolio</title>
+</head>
+    <body>
+        <header>
+            
+        </header>
+        <main>
+            <h1>Hello, World!</h1>
+            <p>Nishanth P K</p>
+            <p>Hello all, <a href="Intern\Portfolio\portfolio.html" style="text-decoration: none;" target="_blank">click here to view my portfolio!</a></p>
+            <button>Perfect</button>
+        </main>
+        <footer>
+
+        </footer>
+        
+        <script>
+            let data1 = function(){
+                return "Hello Zharif";
+            }
+            console.log(data1());
+
+            let data2 = () => {
+                return "Hello Nishanth";
+            }       
+            console.log(data2());
+
+            //in function passing the another function as an arguement
+
+            function sece(callback){
+                console.log(" Welcome SECE");
+                callback();
+            }
+            function student(){
+                console.log("Display Students");
+            }
+            sece(student)
+
+            //Whatsapp
+            //Notification
+
+            function whatsapp(callback){
+                console.log("Whatsapp");
+                callback();
+            }
+            function notification(){
+                console.log("Notification");
+            }
+            whatsapp(notification)
+
+            //promise
+            let api =new Promise((resolve,reject))
+            let(api){
+                resolve("Fetched API data");
+            else{
+                reject("Failed");
+            }
+                console.log("Promise");
+            }
+
+
+
+        </script>
+
+    </body>
+</html>
