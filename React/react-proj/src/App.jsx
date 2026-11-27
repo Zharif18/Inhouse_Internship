@@ -1,4 +1,8 @@
 import './App.css'
+import Counter from './Hooks/UseState/Counter.jsx'
+import Score from './Hooks/UseState/Score.jsx'
+import Componets from './Components/Flipkart.jsx'
+import MobileContext from './Components/MobileContext.js'
 
 function Players({ players }) {
   return (
@@ -47,6 +51,12 @@ function App() {
       <h1>This is App Component</h1>
       <Data obj="Sece College" />
       <Players players={playersData} />
+      <Counter />
+      <Score />
+      <Componets Flipkart = "Flipkart" />
+      <MobileContext.Provider>
+        <Flipkart />
+      </MobileContext.Provider>
     </>
   )
 }

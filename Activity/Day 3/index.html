@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Club Event</title>
+
+    <link rel="stylesheet" href="style.css"> 
+</head>
+<body>
+    <div class="container">
+        <div class="form-card">
+            <h1>Hackathon Registration</h1>
+            <p></p>
+            <form action="#" method="post">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="fullname">Full Name</label>
+                        <input
+                            type="text"
+                            id="fullname"
+                            name="fullname"
+                            placeholder="Enter your full name"
+                            required
+                        >
+                    </div>
+                    <div class="form-group">
+                        <label for="email">College Email ID</label>
+                        <input
+                            type="email"
+                            id="email"
+                            name="email"
+                            placeholder="Enter your college email"
+                            required
+                        >
+                    </div>
+                    <div class="form-group">
+                        <label for="rollnumber">Roll Number</label>
+                        <input
+                            type="text"
+                            id="rollnumber"
+                            name="rollnumber"
+                            placeholder="Enter your roll number"
+                            required
+                        >
+                    </div>
+                    <div class="form-group">
+                        <label for="department">Department</label>
+                        <select id="department" name="department">
+                            <option value="">Select Department</option>
+                            <option value="CSE">CSE</option>
+                            <option value="AIML">AIML</option>
+                            <option value="IT">IT</option>
+                            <option value="ECE">ECE</option>
+                            <option value="Mech">Mech</option>
+                            <option value="EEE">EEE</option>
+                            <option value="CSBS">CSBS</option>
+                            <option value="AIDS">AIDS</option>
+                            <option value="CYS">CYS</option>
+                            <option cvalue="CCE">CCE</option>
+                        </select>
+                    </div>
+                    <div class="form-group tshirt-group">
+                        <label>T-shirt Size</label>
+                        <div class="radio-group">
+                            <label> <input type="radio" name="tshirt" value="S">S </label>
+                            <label> <input type="radio" name="tshirt" value="M">M </label>
+                            <label> <input type="radio" name="tshirt" value="L">L </label>
+                            <label> <input type="radio" name="tshirt" value="XL">XL </label>
+                        </div>
+                    </div>
+                </div>
+                <button type="submit">Register</button>
+                <script>
+                    document.querySelector('form').addEventListener('submit', function(e) {
+                        e.preventDefault();
+                        alert("Registration Successful");
+                    });
+                </script>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

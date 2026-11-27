@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Student Management System</title>
+
+<style>
+:root{
+    --primary:#2563eb;
+    --success:#16a34a;
+    --danger:#dc2626;
+    --dark:#1e293b;
+    --light:#f8fafc;
+}
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, sans-serif;
+}
+
+body{
+    background:#e2e8f0;
+    padding:20px;
+}
+
+.container{
+    max-width:1200px;
+    margin:auto;
+}
+
+.title{
+    text-align:center;
+    margin-bottom:20px;
+    color:var(--dark);
+}
+
+.card{
+    background:white;
+    padding:20px;
+    border-radius:10px;
+    box-shadow:0 4px 10px rgba(0,0,0,0.1);
+    margin-bottom:20px;
+}
+
+.form-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+    gap:10px;
+}
+
+input,select{
+    padding:10px;
+    border:1px solid gray;
+    border-radius:5px;
+}
+
+button{
+    padding:10px;
+    border:none;
+    border-radius:5px;
+    cursor:pointer;
+    color:white;
+}
+
+.add-btn{
+    background:var(--success);
+}
+
+.sort-btn{
+    background:var(--primary);
+}
+
+.delete-btn{
+    background:var(--danger);
+}
+
+.stats{
+    display:flex;
+    justify-content:space-around;
+    flex-wrap:wrap;
+    gap:10px;
+}
+
+.stat-box{
+    background:var(--primary);
+    color:white;
+    padding:15px;
+    border-radius:10px;
+    text-align:center;
+    min-width:180px;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+    margin-top:20px;
+}
+
+th{
+    background:var(--primary);
+    color:white;
+}
+
+th,td{
+    border:1px solid #ddd;
+    padding:10px;
+    text-align:center;
+}
+
+tr:nth-child(even){
+    background:#f5f5f5;
+}
+
+.pass{
+    color:green;
+    font-weight:bold;
+}
+
+.fail{
+    color:red;
+    font-weight:bold;
+}
+
+@media(max-width:768px){
+    table{
+        font-size:12px;
+    }
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+
+<h1 class="title">Student Management Dashboard</h1>
+
+<div class="card">
+
+<div class="form-grid">
+<input type="text" id="name" placeholder="Student Name">
+
+<input type="number"
+       id="mark"
+       placeholder="Mark">
+
+<select id="department">
+<option>CSE</option>
+<option>IT</option>
+<option>ECE</option>
+<option>EEE</option>
+<option>MECH</option>
+</select>
+
+<button class="add-btn" onclick="addStudent()">
+Add Student
+</button>
+</div>
+
+</div>
+
+<div class="card stats">
+
+<div class="stat-box">
+<h2 id="totalStudents">0</h2>
+<p>Total Students</p>
+</div>
+
+<div class="stat-box">
+<h2 id="avgMark">0</h2>
+<p>Average Mark</p>
+</div>
+
+<div class="stat-box">
+<h2 id="topper">-</h2>
+<p>Topper</p>
+</div>
+
+</div>
+
+<div class="card">
+
+<button class="sort-btn" onclick="sortByMarks()">
+Sort By Marks
+</button>
+
+<input
+       type="text"
+       id="search"
+       placeholder="Search Student"
+       style="margin-left:10px;padding:10px;"
+       onkeyup="renderStudents()">
+
+<table>
+
+<thead>
+<tr>
+<th>ID</th>
+<th>Name</th>
+<th>Department</th>
+<th>Mark</th>
+<th>Result</th>
+<th>Action</th>
+</tr>
+</thead>
+
+<tbody id="studentTable">
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+
+<script>
+
+// ARRAY + LOCAL STORAGE
+let students =
+JSON.parse(localStorage.getItem("students")) || [];
+
+// FUNCTION
+function addStudent(){
+
+    const name =
+    document.getElementById("name").value;
+
+    const mark =
+    Number(document.getElementById("mark").value);
+
+    const dept =
+    document.getElementById("department").value;
+
+    // CONDITION
+    if(name === "" || mark === ""){
+        alert("Fill all fields");
+        return;
+    }
+
+    // OBJECT
+    const student = {
+        id: Date.now(),
+        name,
+        department: dept,
+        mark
+    };
+
+    students.push(student);
+
+    saveData();
+    renderStudents();
+
+    document.getElementById("name").value="";
+    document.getElementById("mark").value="";
+}
+
+function renderStudents(){
+
+    const tbody =
+    document.getElementById("studentTable");
+
+    const keyword =
+    document.getElementById("search")
+    .value
+    .toLowerCase();
+
+    tbody.innerHTML="";
+
+    let filtered =
+    students.filter(student =>
+        student.name
+        .toLowerCase()
+        .includes(keyword)
+    );
+
+    // LOOP
+    filtered.forEach(student => {
+
+        let result =
+        student.mark >= 50
+        ? "PASS"
+        : "FAIL";
+
+        tbody.innerHTML += `
+        <tr>
+            <td>${student.id}</td>
+            <td>${student.name}</td>
+            <td>${student.department}</td>
+            <td>${student.mark}</td>
+
+            <td class="${
+                result==="PASS"
+                ? "pass"
+                : "fail"
+            }">
+
+            ${result}
+
+            </td>
+
+            <td>
+            <button
+            class="delete-btn"
+            onclick="deleteStudent(${student.id})">
+            Delete
+            </button>
+            </td>
+        </tr>
+        `;
+    });
+
+    updateStats();
+}
+
+function deleteStudent(id){
+
+    students =
+    students.filter(student =>
+    student.id !== id);
+
+    saveData();
+    renderStudents();
+}
+
+// SORTING
+function sortByMarks(){
+
+    students.sort(
+        (a,b)=>b.mark-a.mark
+    );
+
+    saveData();
+    renderStudents();
+}
+
+// STATISTICS
+function updateStats(){
+
+    document.getElementById(
+    "totalStudents").innerText =
+    students.length;
+
+    if(students.length===0){
+
+        document.getElementById(
+        "avgMark").innerText=0;
+
+        document.getElementById(
+        "topper").innerText="-";
+
+        return;
+    }
+
+    let total=0;
+
+    students.forEach(
+    student => total+=student.mark);
+
+    let avg =
+    (total/students.length)
+    .toFixed(2);
+
+    document.getElementById(
+    "avgMark").innerText =
+    avg;
+
+    let topStudent =
+    students.reduce(
+        (best,current)=>
+        current.mark > best.mark
+        ? current
+        : best
+    );
+
+    document.getElementById(
+    "topper").innerText =
+    topStudent.name;
+}
+
+// LOCAL STORAGE
+function saveData(){
+
+    localStorage.setItem(
+        "students",
+        JSON.stringify(students)
+    );
+
+}
+
+renderStudents();
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/0132801086.js" crossorigin="anonymous"></script>
+    <title>MernStack</title>
+</head>
+    <body>
+        <script>
+            let emp=[
+                {
+                    id:100,
+                    Name:"Nishanth",
+                    Salary:10000,
+                    Address:{
+                        city:"Bangalore",
+                        state:"Karnataka",
+                        country:"India"
+                    }
+                },
+                {
+                    id:101,
+                    Name:"AK Aswad",
+                    Salary:100000,
+                    Address:{
+                        city:"Chennai",
+                        state:"Tamilnadu",
+                        country:"India"
+                    }
+                }
+            ];
+            console.log(emp[0].Address.city);
+            console.log(emp[1].Address.city);
+
+            //object to string conversion
+            let stringify_a=JSON.stringify(emp);
+            console.log(stringify_a);
+
+            let b=JSON.stringify(emp[0]);
+            console.log(b);
+        
+            //string to object conversion
+            let c=JSON.parse(b);
+            console.log(c);
+
+            // it will not create a new object it will create a reference to the existing object
+            console.log("Reference");
+            let c_data=emp;
+            c_data[0].Salary=80000;
+            console.log(c_data);
+            console.log(emp);
+
+            //Shallow copy (using spread operator)
+            console.log("Shallow copy");
+            let d_data=[...emp];
+            d_data[0].Salary=50000;
+            console.log(d_data);
+            console.log(emp);
+
+            //Deep copy (using JSON.parse and JSON.stringify)
+            console.log("Deep copy");
+            let e_data=JSON.parse(JSON.stringify(emp));
+            e_data[0].Salary=30000;
+            console.log(e_data);
+            console.log(emp);
+
+        </script>
+
+    </body>
+</html>
