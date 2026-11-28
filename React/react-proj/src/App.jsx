@@ -3,6 +3,13 @@ import Counter from './Hooks/UseState/Counter.jsx'
 import Score from './Hooks/UseState/Score.jsx'
 import Componets from './Components/Flipkart.jsx'
 import MobileContext from './Components/MobileContext.js'
+import User from './Hooks/UseEffect/user.jsx'
+import Registration from './Components/Registration.jsx'
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import Home from './pages/home.jsx'
+import About from './pages/About.jsx'
+import Contact from './pages/Contact.jsx'
+import Navbar from './Components/Navbar.jsx'
 
 function Players({ players }) {
   return (
@@ -48,15 +55,25 @@ function App() {
 
   return (
     <>
-      <h1>This is App Component</h1>
+     {/* <h1>This is App Component</h1>
       <Data obj="Sece College" />
-      <Players players={playersData} />
+     <Players players={playersData} />
       <Counter />
       <Score />
       <Componets Flipkart = "Flipkart" />
       <MobileContext.Provider>
         <Flipkart />
-      </MobileContext.Provider>
+      </MobileContext.Provider> 
+      <User />
+      <Registration />*/}
+      <BrowserRouter>
+        <Navbar />
+        <Routes>
+          <Route path="/home" element={<Home Page/>} />
+          <Route path="/about" element={<About Page/>}/>
+          <Route path="/contact" element={<Contact Page/>}/>
+        </Routes>
+      </BrowserRouter>
     </>
   )
 }
